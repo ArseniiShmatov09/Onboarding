@@ -9,11 +9,32 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  smooth_page_indicator: ^1.1.0
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_lints: ^3.0.0
+  flutter_gen:
 
 flutter:
   uses-material-design: true
+
+  assets:
+    - assets/images/png/
+
+  fonts:
+    - family: Abel
+      fonts:
+        - asset: assets/fonts/Abel-Regular.ttf
+          weight: 400
+    - family: SF Pro
+      fonts:
+        - asset: assets/fonts/SF-Pro-Display-Regular.otf
+          weight: 400
+        - asset: assets/fonts/SF-Pro-Display-Bold.otf
+          weight: 700
+    - family: Anek Malayalam
+      fonts:
+        - asset: assets/fonts/AnekMalayalam-Bold.ttf
+          weight: 700
