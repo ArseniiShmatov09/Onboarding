@@ -1,8 +1,9 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
+import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import 'package:onboarding/constants/colors.dart';
 import 'package:onboarding/gen/fonts.gen.dart';
 import 'package:onboarding/widgets/transition_button.dart';
-import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 class PageConstructor extends StatelessWidget {
   final String title;
@@ -40,7 +41,12 @@ class PageConstructor extends StatelessWidget {
           ),
           const SizedBox(height: 15,),
           Image.asset(mainImagePath),
-          PageBottom(page: page, mainBackgroundColor: mainBackgroundColor),
+          // PageBottom(
+          //   page: page, 
+          //   onPressedSkip:() => context.read<OnboardingCubit>().skip(), 
+          //   onTapNextPage:() => context.read<OnboardingCubit>().nextPage(), 
+          //   mainBackgroundColor: mainBackgroundColor,
+          // ),
         ],
       ),
     );
@@ -97,13 +103,19 @@ class PageHatText extends StatelessWidget {
 
 class PageBottom extends StatelessWidget {
 
-  final Color? mainBackgroundColor;
+  final Color mainBackgroundColor;
   final int page;
-  
+  final void Function()? onTapNextPage;
+  final void Function()? onPressedSkip;
+  final PageController controller;
+
   const PageBottom({
-    super.key, 
-    this.mainBackgroundColor, 
-    required this.page
+    super.key,
+    required this.mainBackgroundColor,
+    required this.page,
+    required this.onTapNextPage,
+    required this.onPressedSkip, 
+    required this.controller
   });
 
   @override
@@ -118,7 +130,7 @@ class PageBottom extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               SmoothPageIndicator(
-                controller: PageController(),
+                controller: controller,
                 count: 4,
                 effect: ExpandingDotsEffect(
                   dotHeight: 8,
@@ -129,7 +141,7 @@ class PageBottom extends StatelessWidget {
               ),
               const SizedBox(height: 15),
               TextButton(
-                onPressed: ()=>{},
+                onPressed: onPressedSkip,
                 style: TextButton.styleFrom(
                   padding: const EdgeInsets.all(0.0),
                   minimumSize: const Size(0, 0),
@@ -150,7 +162,8 @@ class PageBottom extends StatelessWidget {
           const Spacer(),
           TransitionButton(
             page: page, 
-            iconColor: mainBackgroundColor
+            iconColor: mainBackgroundColor,
+            onTapNextPage: onTapNextPage,
           ),
         ],
       ),

@@ -1,35 +1,42 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 // ignore_for_file: sized_box_for_whitespace
 
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+
 import 'package:onboarding/constants/colors.dart';
 
 class TransitionButton extends StatelessWidget {
   final int page;
   final Color? iconColor;
+  final void Function()? onTapNextPage;
 
   const TransitionButton({
     super.key,
     required this.page,
     required this.iconColor,
+    this.onTapNextPage,
   });
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: 58,
-      height: 58,
-      child: Stack(
-        fit: StackFit.expand,
-        children: [
-          CustomPaint(
-            painter: TransitionPainter(page: page)),
-            Icon(
-              Icons.chevron_right, 
-              color: iconColor,
-          ),
-        ],
+    return InkWell(
+      onTap: onTapNextPage,
+      child: Container(
+        width: 58,
+        height: 58,
+        child: Stack(
+          fit: StackFit.expand,
+          children: [
+            CustomPaint(
+              painter: TransitionPainter(page: page)),
+              Icon(
+                Icons.chevron_right, 
+                color: iconColor,
+            ),
+          ],
+        ),
       ),
     );
   }
